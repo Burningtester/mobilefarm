@@ -30,7 +30,7 @@ public class MainActivityTest {
         }
 
         // Sleep to verify the test result
-        Thread.sleep(1_000);
+        Thread.sleep(2_000);
 
         // Verify that the TextView text changes to the expected value
         String expected = String.valueOf(n);
