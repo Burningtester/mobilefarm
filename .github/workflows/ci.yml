@@ -10,7 +10,7 @@ env:
   SELECTEL_AUTH_TOKENS_URL: "https://cloud.api.selcloud.ru/identity/v3/auth/tokens"
   SELECTEL_MOBILE_FARM_API_URL: "https://api.selectel.ru/mobfarm/api"
   USER_NAME: "Germaine"
-  PASSWORD: "1,@'j;I%Gk\",Nl*\^+/{"
+  PASSWORD: ${{ secrets.PASSWORD }}
   PROJECT_NAME: "4c8093ff01d047b19c12b1b917d7ce88"
   ACCOUNT_NAME: "48793921c2574f9f9889df4372bdb3f7"
   DEVICE_SERIAL: "6e61ee88e8a2483f9db3362feeaddaa9"
