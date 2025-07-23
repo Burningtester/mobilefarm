@@ -9,7 +9,7 @@ on:
 env:
   SELECTEL_AUTH_TOKENS_URL: "https://cloud.api.selcloud.ru/identity/v3/auth/tokens"
   SELECTEL_MOBILE_FARM_API_URL: "https://api.selectel.ru/mobfarm/api"
-  USER_NAME: "burning.tester.channel@gmail.com"
+  USER_NAME: "Дуенин Антон"
   PASSWORD: "5U2t!GCrKd!8RrK"
   PROJECT_NAME: "4c8093ff01d047b19c12b1b917d7ce88"
   ACCOUNT_NAME: "3ad0b63b9f3a4f39949a5fc59a85337a"
