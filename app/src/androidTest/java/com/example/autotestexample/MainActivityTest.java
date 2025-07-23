@@ -27,7 +27,6 @@ public class MainActivityTest {
         // Perform clicks action on the button
         for (int i = 0; i < n; i += 1) {
             onView(withId(R.id.button)).perform(click());
-            onView(withId(R.id.button)).perform(click());
         }
 
         // Sleep to verify the test result
