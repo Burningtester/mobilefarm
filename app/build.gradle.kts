@@ -36,6 +36,9 @@ android {
 
     testOptions {
         animationsDisabled = true
+        installation {
+            timeOutInMs = 300_000 // 5 минут
+        }
     }
 }
 
