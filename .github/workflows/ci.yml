@@ -13,7 +13,7 @@ env:
   PASSWORD: ${{ secrets.PASSWORD }}
   PROJECT_NAME: "My First Project"
   ACCOUNT_NAME: "455944"
-  DEVICE_SERIAL: "6e61ee88e8a2483f9db3362feeaddaa9"
+  DEVICE_SERIAL: "4c8093ff01d047b19c12b1b917d7ce88"
 
 jobs:
   run-autotests:
