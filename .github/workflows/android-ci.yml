@@ -48,13 +48,19 @@ jobs:
           arch: x86_64
           build-tools: 33.0.2
 
+      - name: Install system image
+        run: |
+          sdkmanager "system-images;android-33;google_apis;x86_64"
+
       - name: Create emulator
         run: |
           echo "no" | avdmanager create avd -n test -k "system-images;android-33;google_apis;x86_64" --device "pixel"
           $ANDROID_HOME/emulator/emulator -avd test -no-window -no-audio -no-snapshot &
           adb wait-for-device
           adb shell input keyevent 82
-      
+
+      - name: Wait for emulator
+        run: sleep 30
 
       - name: Run Instrumented Tests
         run: ./gradlew connectedDebugAndroidTest
