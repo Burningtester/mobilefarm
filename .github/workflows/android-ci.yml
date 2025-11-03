@@ -2,15 +2,14 @@ name: Android CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
 
     steps:
       - name: Checkout repository
@@ -38,15 +37,15 @@ jobs:
       - name: Build Debug APK
         run: ./gradlew assembleDebug
 
-      - name: Run instrumented tests
+      - name: Run instrumented tests on ARM emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 30 # стабильный и быстрый образ
+          api-level: 30
           target: google_apis
-          arch: x86_64
+          arch: arm64-v8a
           profile: pixel_6
           disable-animations: true
           force-avd-creation: true
           emulator-options: -no-window -no-audio -no-snapshot -gpu swiftshader_indirect
-          emulator-wait-timeout: 600
+          emulator-wait-timeout: 800
           script: ./gradlew connectedDebugAndroidTest
