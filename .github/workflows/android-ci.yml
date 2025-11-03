@@ -11,16 +11,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
 
+    steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Make gradlew executable
         run: chmod +x gradlew
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
@@ -41,13 +41,12 @@ jobs:
       - name: Run instrumented tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 33
+          api-level: 30 # стабильный и быстрый образ
           target: google_apis
           arch: x86_64
           profile: pixel_6
           disable-animations: true
           force-avd-creation: true
-          emulator-options: -no-window -no-audio -no-snapshot
-          script: ./gradlew connectedDebugAndroidTest
+          emulator-options: -no-window -no-audio -no-snapshot -gpu swiftshader_indirect
           emulator-wait-timeout: 600
-
+          script: ./gradlew connectedDebugAndroidTest
