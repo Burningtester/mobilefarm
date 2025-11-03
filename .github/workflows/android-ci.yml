@@ -40,5 +40,21 @@ jobs:
       - name: Build Debug APK
         run: ./gradlew assembleDebug
 
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v2
+        with:
+          api-level: 33
+          target: default
+          arch: x86_64
+          build-tools: 33.0.2
+
+      - name: Create emulator
+        run: |
+          echo "no" | avdmanager create avd -n test -k "system-images;android-33;google_apis;x86_64" --device "pixel"
+          $ANDROID_HOME/emulator/emulator -avd test -no-window -no-audio -no-snapshot &
+          adb wait-for-device
+          adb shell input keyevent 82
+      
+
       - name: Run Instrumented Tests
         run: ./gradlew connectedDebugAndroidTest
