@@ -1,4 +1,3 @@
-
 name: Android CI
 
 on:
@@ -37,30 +36,30 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug
-
       - name: Set up Android SDK
         uses: android-actions/setup-android@v2
         with:
           api-level: 33
-          target: default
-          arch: x86_64
           build-tools: 33.0.2
 
-      - name: Install system image
+      - name: Install system image for ARM emulator
         run: |
-          sdkmanager "system-images;android-33;google_apis;x86_64"
+          yes | sdkmanager "system-images;android-33;google_apis;arm64-v8a"
+          sdkmanager --licenses
 
-      - name: Create emulator
+      - name: Create and start ARM emulator
         run: |
-          echo "no" | avdmanager create avd -n test -k "system-images;android-33;google_apis;x86_64" --device "pixel"
+          echo "no" | avdmanager create avd -n test -k "system-images;android-33;google_apis;arm64-v8a" --device "pixel"
           $ANDROID_HOME/emulator/emulator -avd test -no-window -no-audio -no-snapshot &
           adb wait-for-device
           adb shell input keyevent 82
 
-      - name: Wait for emulator
-        run: sleep 30
+      - name: Wait for emulator to boot
+        run: |
+          timeout 120 sh -c 'until adb shell getprop sys.boot_completed | grep -m 1 1; do sleep 5; done'
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
 
       - name: Run Instrumented Tests
         run: ./gradlew connectedDebugAndroidTest
